@@ -27,8 +27,6 @@ public class SecessionDialog extends JDialog {
 	private JPanel contentPane;
 	private JTextField tfId;
 	private JTextField pfPw;
-//	private JLabel checkPw;
-//	private MbtiImageManager im = new MbtiImageManager();
 	private JButton btnSecession;
 	private JLabel noPw;
 	private UserinfoRepositoryImpl uri = new UserinfoRepositoryImpl();
@@ -57,20 +55,8 @@ public class SecessionDialog extends JDialog {
 		tf.setForeground(Color.gray);
 		tf.setBorder(new EmptyBorder(0, 7, 0, 7));
 		tf.setColumns(20);
-		// tf.addFocusListener(this);
-		// tf.addKeyListener(this);
 		contentPane.add(tf);
 	}
-
-	// 체크이미지(입력값 확인)
-//	private JLabel checkImage(JLabel lbl, int i) {
-//		JLabel lblCheck = new JLabel();
-//		lblCheck.setIcon(new ImageIcon(im.getChecked()));
-//		lblCheck.setBounds(i, 10, 15, 15);
-//		lblCheck.setBackground(null);
-//		lbl.add(lblCheck);
-//		return lblCheck;
-//	}
 
 	public SecessionDialog(User user) {
 		setModal(true);
@@ -103,7 +89,6 @@ public class SecessionDialog extends JDialog {
 		pfPw = new JTextField();
 		pfPw.setBounds(63, 224, 234, 33);
 		tfSetting(pfPw);
-		// checkPw = checkImage(lblPw, 130);
 
 		noPw = new JLabel("");
 		noPw.setBounds(66, 270, 170, 32);
@@ -119,11 +104,9 @@ public class SecessionDialog extends JDialog {
 		btnSecession.setForeground(Color.white);
 		btnSecession.setBounds(62, 300, 236, 39);
 		contentPane.add(btnSecession);
-		// btnSecession.addKeyListener(this);
 		btnSecession.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
 				String a = user.getPw();
 
 				if (a.equals(pfPw.getText())) {
@@ -131,15 +114,10 @@ public class SecessionDialog extends JDialog {
 					new CheckDialog().setVisible(true);
 					sucessionDispose = true;
 					dispose();
-//					JOptionPane.showMessageDialog(null, "탈퇴가 완료되었습니다.");
-
 				} else {
 					noPw.setText("비밀번호를 잘못 입력하였습니다.");
 				}
 			}
-
 		});
-
 	}
-
 }

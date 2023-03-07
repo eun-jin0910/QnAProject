@@ -45,9 +45,8 @@ public class ImageServiceToolImpl implements ImageServiceTool {
 	@Override
 	public int countFilesAfterPackageJar(String path) {
 		int count = 0;
-		
 		URL url = classLoader.getResource(path);
-		if (url != null) { // 조건 대충만듬.
+		if (url != null) { 
 			return -100;
 		} else {
 			try {

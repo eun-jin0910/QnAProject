@@ -104,7 +104,6 @@ public class UserinfoRepositoryImpl implements UserinfoRepository {
 				}
 			}
 		} catch (SQLException e) {
-		//	e.printStackTrace();
 			return null;
 		}
 		return null;

@@ -10,7 +10,6 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.List;
-import java.util.regex.PatternSyntaxException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -45,7 +44,6 @@ public class LobbyFrame extends JFrame implements ActionListener {
 	private LobbyServiceImpl lsi;
 	private TableRowSorter<TableModel> sorter;
 	private UserinfoRepositoryImpl repo = new UserinfoRepositoryImpl();
-	private JButton searchBtn;
 
 	public LobbyFrame(User user) {
 		lsi = new LobbyServiceImpl(new LobbyServiceToolImpl());
@@ -68,7 +66,7 @@ public class LobbyFrame extends JFrame implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (isRowSelected(table)) {
+				if (lsi.isRowSelected(table)) {
 					int seletedRow = table.getSelectedRow();
 					Object userId = table.getValueAt(seletedRow, 2);
 					User defender = repo.loginUser((String) userId);
@@ -76,7 +74,6 @@ public class LobbyFrame extends JFrame implements ActionListener {
 					gf.setVisible(true);
 					dispose();
 				}
-
 			}
 		});
 
@@ -112,12 +109,12 @@ public class LobbyFrame extends JFrame implements ActionListener {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					searchBtn.doClick();
+					transferMethod();
 				}
 			}
 		});
 
-		searchBtn = new JButton("검색");
+		JButton searchBtn = new JButton("검색");
 		searchBtn.setFont(new Font("맑은 고딕", Font.BOLD, 12));
 		searchBtn.setBackground(SystemColor.control);
 		searchBtn.setBounds(242, 343, 74, 23);
@@ -175,10 +172,7 @@ public class LobbyFrame extends JFrame implements ActionListener {
 		sorter = new TableRowSorter<TableModel>(model);
 		table.setRowSorter(sorter);
 
-		List<String[]> infoList = lsi.readUserinfo(user);
-		for (String[] info : infoList) {
-			model.addRow(info);
-		}
+		lsi.readUserinfo(model, user);
 		setResizable(false);
 		setLocationRelativeTo(null);
 	}
@@ -187,58 +181,38 @@ public class LobbyFrame extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
 		if (command.equals("로그아웃")) {
-			new Login();
+			Login login = new Login();
 			dispose();
 		}
 		if (command.equals("랭킹 조회")) {
-			if (isRowSelected(table)) {
+			if (lsi.isRowSelected(table)) {
 				int seletedRow = table.getSelectedRow();
 				String userId = (String) table.getValueAt(seletedRow, 2);
 				User user = repo.loginUser((String) userId);
 				UserRankDialog urd = new UserRankDialog(user);
 				List<Attacker> attackerList = lsi.makeAttackerList(user);
-				List<String[]> infoList = lsi.readedUserRanking(attackerList);
-				for (String[] strings : infoList) {
-					urd.getModel().addRow(strings);
-				}
+				lsi.setUserRanking(urd, attackerList);
 				urd.setVisible(true);
 			}
 		}
 		if (command.equals("검색")) {
-	         if (str.equals("이름")) {
-	            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + inputInfo.getText(), 0));
-	         } else if (str.equals("성별")) {
-	            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + inputInfo.getText(), 1));
-	         } else if (str.equals("ID")) {
-	            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + inputInfo.getText(), 2));
-	         } else if (str.equals("MBTI")) {
-	            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + inputInfo.getText(), 3));
-	         } else {
-	            infomationFiltering();
-	         }
-	         inputInfo.setText("");
-	      }
-	}
-	
-	public void infomationFiltering() {
-		if (inputInfo.getText().length() == 0) {
-			sorter.setRowFilter(null);
-		} else {
-			try {
-				sorter.setRowFilter(RowFilter.regexFilter(inputInfo.getText()));
-			} catch (PatternSyntaxException pse) {
-				System.out.println("패턴 문법 예외 발생");
+			if (str.equals("이름")) {
+				sorter.setRowFilter(RowFilter.regexFilter("(?i)" + inputInfo.getText(), 0));
+			} else if (str.equals("성별")) {
+				sorter.setRowFilter(RowFilter.regexFilter("(?i)" + inputInfo.getText(), 1));
+			} else if (str.equals("ID")) {
+				sorter.setRowFilter(RowFilter.regexFilter("(?i)" + inputInfo.getText(), 2));
+			} else if (str.equals("MBTI")) {
+				sorter.setRowFilter(RowFilter.regexFilter("(?i)" + inputInfo.getText(), 3));
+			} else {
+				lsi.infomationFiltering(this);
 			}
+			inputInfo.setText("");
 		}
 	}
-	
-	public boolean isRowSelected(JTable table) {
-		for (int i = 0; i < table.getRowCount(); i++) {
-			if (table.isRowSelected(i)) {
-				return true;
-			}
-		}
-		return false;
+
+	private void transferMethod() {
+		lsi.infomationFiltering(this);
 	}
 
 	public JTextField getInputInfo() {

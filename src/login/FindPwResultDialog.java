@@ -4,12 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -18,7 +13,6 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 
-import mbti.MbtiImageManager;
 
 public class FindPwResultDialog extends JDialog {
 	private JPanel contentPane;
@@ -33,10 +27,6 @@ public class FindPwResultDialog extends JDialog {
 	public void setTfMbti(JTextField tfMbti) {
 		this.tfMbti = tfMbti;
 	}
-
-//	public static void main(String[] args) {
-//		new FindPwResultDialog("1234").setVisible(true);
-//	}
 
 	public FindPwResultDialog(String pw) {
 		setModal(true);
@@ -75,7 +65,6 @@ public class FindPwResultDialog extends JDialog {
 				dispose();
 			}
 		});
-
 	}
 
 	// 텍스트필드 설정
@@ -95,5 +84,4 @@ public class FindPwResultDialog extends JDialog {
 		lbl.setForeground(Color.DARK_GRAY);
 		contentPane.add(lbl);
 	}
-
 }

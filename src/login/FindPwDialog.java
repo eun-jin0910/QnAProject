@@ -8,24 +8,15 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 
-import exam.ExamDialog;
-import mbti.MbtiDialog;
 import mbti.MbtiImageManager;
 
 public class FindPwDialog extends JDialog implements FocusListener, KeyListener {
@@ -35,8 +26,6 @@ public class FindPwDialog extends JDialog implements FocusListener, KeyListener 
 	private JTextField tfMbti;
 	private JLabel lblResult;
 	private JButton btnNext;
-	private JLabel checkId;
-	private JLabel checkName;
 	private MbtiImageManager im = new MbtiImageManager();
 	private UserinfoRepository rep = new UserinfoRepositoryImpl();
 
@@ -70,7 +59,6 @@ public class FindPwDialog extends JDialog implements FocusListener, KeyListener 
 		tfId = new JTextField("");
 		tfId.setBounds(63, 159, 234, 33);
 		tfSetting(tfId);
-//		checkId = checkImage(lblId, 38);
 
 		JLabel lblName = new JLabel("이름");
 		lblName.setBounds(66, 195, 100, 32);
@@ -78,7 +66,6 @@ public class FindPwDialog extends JDialog implements FocusListener, KeyListener 
 		tfName = new JTextField("");
 		tfName.setBounds(63, 224, 234, 33);
 		tfSetting(tfName);
-//		checkName = checkImage(lblName, 26);
 
 		lblResult = new JLabel("");
 		lblResult.setBounds(64, 266, 220, 39);
@@ -132,34 +119,6 @@ public class FindPwDialog extends JDialog implements FocusListener, KeyListener 
 		contentPane.add(lbl);
 	}
 
-//	// 체크이미지(입력값 확인)
-//	private JLabel checkImage(JLabel lbl, int i) {
-//		JLabel lblCheck = new JLabel();
-//		lblCheck.setIcon(new ImageIcon(im.getUnchecked()));
-//		lblCheck.setBounds(i, 10, 15, 15);
-//		lblCheck.setBackground(null);
-//		lbl.add(lblCheck);
-//		return lblCheck;
-//	}
-//
-//	// 입력값 확인 후 체크이미지 변경
-//	private void checkInputImage(KeyEvent e) {
-//		if (e.getSource() == tfId) {
-//			if (rep.countById(tfId.getText()) != 0) {
-//				checkId.setIcon(new ImageIcon(im.getChecked()));
-//			} else {
-//				checkId.setIcon(new ImageIcon(im.getUnchecked()));
-//			}
-//		} else if (e.getSource() == tfName) {
-//			String name = rep.loginUser(tfId.getText()).getName();
-//			if (name.equals(tfName.getText())) {
-//				checkName.setIcon(new ImageIcon(im.getChecked()));
-//			} else {
-//				checkName.setIcon(new ImageIcon(im.getUnchecked()));
-//			}
-//		}
-//	}
-
 	// 패스워드 아이디,이름 확인
 	public boolean checkNotInput(String id, String name) {
 		if (name.equals("") || id.equals("")) {
@@ -196,26 +155,7 @@ public class FindPwDialog extends JDialog implements FocusListener, KeyListener 
 	}
 
 	@Override
-	public void focusLost(FocusEvent e) { // 내용을 지우면 초기값 설정
-//		if (e.getSource() == tfName && tfName.getText().equals("")) {
-//			tfName.setText("이름");
-//		} else if (e.getSource() == tfId && tfId.getText().equals("")) {
-//			tfId.setText("아이디");
-//		}
-//		if (e.getSource() == tfId) { // 코드정리하기..
-//			if (rep.countById(tfId.getText()) != 0) {
-//				checkId.setIcon(new ImageIcon(im.getChecked()));
-//			} else {
-//				checkId.setIcon(new ImageIcon(im.getUnchecked()));
-//			}
-//		} else if (e.getSource() == tfName) {
-//			String name = rep.loginUser(tfId.getText()).getName();
-//			if (name.equals(tfName.getText())) {
-//				checkName.setIcon(new ImageIcon(im.getChecked()));
-//			} else {
-//				checkName.setIcon(new ImageIcon(im.getUnchecked()));
-//			}
-//		}
+	public void focusLost(FocusEvent e) { 
 	}
 
 	@Override
@@ -225,15 +165,11 @@ public class FindPwDialog extends JDialog implements FocusListener, KeyListener 
 		}
 	}
 
-//
 	@Override
 	public void keyReleased(KeyEvent e) {
-//		checkInputImage(e);
 	}
 
-//
 	@Override
 	public void keyTyped(KeyEvent e) {
-//		checkInputImage(e);
 	}
 }

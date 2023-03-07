@@ -40,26 +40,9 @@ public class ExamDialog extends JDialog implements ActionListener {
 	private examServiceImpl esi;
 	private User user;
 
-//	public static void main(String[] args) {
-//
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					ExamFrame frame = new ExamFrame();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
 	public ExamDialog(User user) {
-	//	setModal(true);
 		this.user = user;
 		esi = new examServiceImpl();
-
-//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(560, 150, 549, 723);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
@@ -162,7 +145,6 @@ public class ExamDialog extends JDialog implements ActionListener {
 					selectNum.add(i);
 				}
 			}
-//			System.out.println("가입하기 선택된번호" + selectNum);
 
 			if (selectNum.size() == 10) {
 				UserinfoRepository userinfoRep = new UserinfoRepositoryImpl();

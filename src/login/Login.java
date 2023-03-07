@@ -31,9 +31,4 @@ public class Login {
 	public User loginUser(String id) {
 		return repo.loginUser(id);
 	}
-	
-	
-//	public static void main(String[] args) {
-//		Login login = new Login();
-//	}
 }

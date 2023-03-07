@@ -51,7 +51,6 @@ public class GameModeServiceImpl implements GameModeService {
 		for (Image firstHalf : firstHalfList) {
 			firstHalfImages.add(firstHalf);
 		}
-
 		return firstHalfImages;
 	}
 
@@ -95,7 +94,7 @@ public class GameModeServiceImpl implements GameModeService {
 		UserRankDialog urd = new UserRankDialog(defender);
 		LobbyServiceImpl lsi = new LobbyServiceImpl(new LobbyServiceToolImpl());
 		List<Attacker> attackerList = lsi.makeAttackerList(defender);
-		lsi.readedUserRanking(attackerList);
+		lsi.setUserRanking(urd, attackerList);
 		for (int i = 0; i < urd.getModel().getRowCount(); i++) {
 			String attackerId = (String) urd.getModel().getValueAt(i, 1);
 			if (user.getId().equals(attackerId)) {
@@ -120,7 +119,6 @@ public class GameModeServiceImpl implements GameModeService {
 					return choice;
 				}
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -128,10 +126,11 @@ public class GameModeServiceImpl implements GameModeService {
 	}
 
 	@Override
-	public void dataTransferToDB(User user, User defender, List<Integer> choiceList) {
+	public void dataTransferToDB(User user, User defender, GameFrame gameFrame) {
 		if (isUserPlayedGameBefore(user, defender)) {
 			gmst.deleteAnswer(user, defender);
 		}
+		List<Integer> choiceList = gameFrame.getChoiceList();
 		String sql = "INSERT INTO answer VALUES (?, ?, ?);";
 		try (Connection conn = ConnectionProvider.makeConnection();
 				PreparedStatement stmt = conn.prepareStatement(sql);) {
@@ -201,15 +200,14 @@ public class GameModeServiceImpl implements GameModeService {
 				gameFrame.getLabel().add(lbl);
 			}
 		}
-		if (currentImageIndex == 46 && secondHalfGo) { // 나는... 라벨
+		if (currentImageIndex == 46 && secondHalfGo) {
 			lbl.setText(gameFrame.getDefender().getName() + "은(는) 언제오려나...?");
 			lbl.setBounds(150, 380, 400, 300);
 			lbl.setFont(font3);
 			gameFrame.getLabel().add(lbl);
 		}
-
-		// ------ 카톡 화면 라벨 ------
-		if (nameList.contains(currentImageIndex)) { // 이름라벨
+		// 카톡 화면 라벨
+		if (nameList.contains(currentImageIndex)) {
 			int y = 53;
 			if (currentImageIndex == 19) {
 				y -= 85;
@@ -265,7 +263,7 @@ public class GameModeServiceImpl implements GameModeService {
 				y = 163;
 			} else if (currentImageIndex == 44) {
 				y = 105;
-			} else if (currentImageIndex == 45 && !secondHalfGo) { // 여기여기
+			} else if (currentImageIndex == 45 && !secondHalfGo) { 
 				y = 75;
 			} else if (currentImageIndex == 45 && secondHalfGo) {
 				lbl.setVisible(false);
@@ -313,7 +311,7 @@ public class GameModeServiceImpl implements GameModeService {
 				y = 337;
 			} else if (currentImageIndex == 44) {
 				y = 281;
-			} else if (currentImageIndex == 45 && !secondHalfGo) { // 여기여기
+			} else if (currentImageIndex == 45 && !secondHalfGo) { 
 				y = 231;
 			} else if (currentImageIndex == 45 && secondHalfGo) {
 				lbl.setVisible(false);

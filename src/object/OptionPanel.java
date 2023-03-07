@@ -12,9 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import exam.examServiceImpl;
-import style.ImageService;
-import style.ImageServiceImpl;
-import style.ImageServiceToolImpl;
 
 public class OptionPanel extends JPanel {
 	private List<JButton> btns;

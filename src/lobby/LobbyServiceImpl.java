@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+//import com.mysql.cj.x.protobuf.MysqlxCrud.CollectionOrBuilder;
 
 import dbutil.ConnectionProvider;
 import mypage.MypageDialog;
@@ -35,9 +36,8 @@ public class LobbyServiceImpl implements LobbyService {
 	}
 
 	@Override
-	public List<String[]> readUserinfo(User user) {
+	public void readUserinfo(DefaultTableModel model, User user) {
 		String sql = "SELECT name, gender, id, mbti FROM userinfo WHERE id <> ?";
-		List<String[]> inpuStrList = new ArrayList<>();
 		try (Connection conn = ConnectionProvider.makeConnection();
 				PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, user.getId());
@@ -45,15 +45,34 @@ public class LobbyServiceImpl implements LobbyService {
 			try (ResultSet rs = stmt.executeQuery()) {
 				while (rs.next()) {
 					String[] inputStr = lst.makeUserinfoArr(rs);
-					inpuStrList.add(inputStr);
+					model.addRow(inputStr);
 				}
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return inpuStrList;
+	}
 
+	@Override
+	public void infomationFiltering(LobbyFrame lobbyFrame) {
+		if (lobbyFrame.getInputInfo().getText().length() == 0) {
+			lobbyFrame.getSorter().setRowFilter(null);
+		} else {
+			try {
+				lobbyFrame.getSorter().setRowFilter(RowFilter.regexFilter(lobbyFrame.getInputInfo().getText()));
+			} catch (PatternSyntaxException pse) {
+			}
+		}
+	}
+
+	@Override
+	public boolean isRowSelected(JTable table) {
+		for (int i = 0; i < table.getRowCount(); i++) {
+			if (table.isRowSelected(i)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
@@ -72,7 +91,6 @@ public class LobbyServiceImpl implements LobbyService {
 					attackerNameSet.add(attackerName);
 				}
 			}
-			
 			for (String attacker : attackerNameSet) {
 				Attacker a = lst.attackerCaculationScore(user, attacker, conn);
 				attackerList.add(a);
@@ -108,12 +126,10 @@ public class LobbyServiceImpl implements LobbyService {
 					attackerNameSet.add(attackerName);
 				}
 			}
-
 			for (String attacker : attackerNameSet) {
 				Attacker a = lst.myAttackCaculationScore(attacker, (String) user.getId(), conn);
 				attackerList.add(a);
 			}
-
 			Collections.sort(attackerList, new Comparator<Object>() {
 				@Override
 				public int compare(Object o1, Object o2) {
@@ -145,18 +161,16 @@ public class LobbyServiceImpl implements LobbyService {
 	}
 
 	@Override
-	public List<String[]> readedUserRanking(List<Attacker> attackerList) {
-		List<String[]> infoList = new ArrayList<>();
+	public void setUserRanking(UserRankDialog urd, List<Attacker> attackerList) {
+		Object[] inputInfo = new Object[3];
 		int rankingNum = 1;
 		for (Attacker attacker : attackerList) {
-			String[] inputInfo = new String[3];
-			inputInfo[0] = String.valueOf(rankingNum);
+			inputInfo[0] = rankingNum;
 			inputInfo[1] = attacker.getName();
-			inputInfo[2] = String.valueOf(attacker.getScore());
-			infoList.add(inputInfo);
+			inputInfo[2] = attacker.getScore();
+			urd.getModel().addRow(inputInfo);
 			rankingNum++;
 		}
-		return infoList;
 	}
 	
 	@Override
@@ -184,5 +198,4 @@ public class LobbyServiceImpl implements LobbyService {
 			rankingNum++;
 		}
 	}
-
 }

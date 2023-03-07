@@ -120,8 +120,6 @@ public class MypageDialog extends JDialog implements ActionListener {
 		LobbyServiceImpl lsi = new LobbyServiceImpl(new LobbyServiceToolImpl());
 		List<Attacker> attakList = lsi.makeMyAttackList(user);
 		lsi.setAttackRanking(this, attakList);
-		// 내가 공략한 사람 여기까지
-		
 		
 		// 나를 공략한 사람
 		JTextField tfDefend = new JTextField("나를 공략한 사람");
@@ -145,8 +143,6 @@ public class MypageDialog extends JDialog implements ActionListener {
 		
 		List<Attacker> defendList = lsi.makeAttackerList(user);
 		lsi.setDefendRanking(this, defendList);
-		// 나를 공략한 사람 여기까지
-		
 		
 		JButton btnChangeInfo = new JButton("개인 정보 수정");
 		btnSetting(btnChangeInfo);
@@ -188,8 +184,6 @@ public class MypageDialog extends JDialog implements ActionListener {
 		});
 	}
 
-	
-	
 	// 버튼 설정
 	private void btnSetting(JButton btn) {
 		btn.setFont(new Font("맑은 고딕", Font.BOLD, 12));

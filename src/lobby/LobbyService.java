@@ -13,12 +13,13 @@ import object.User;
 import ranking.UserRankDialog;
 
 public interface LobbyService {
-	public List<String[]> readUserinfo(User user);
+	public void readUserinfo(DefaultTableModel model, User user);
+	public void infomationFiltering(LobbyFrame lobbyFrame);
+	public boolean isRowSelected(JTable table);
 	public List<Attacker> makeAttackerList(User user);
 	public List<Attacker> makeMyAttackList(User user);
-	public List<String[]> readedUserRanking(List<Attacker> attackerList);
+	public void setUserRanking(UserRankDialog urd, List<Attacker> attackerList);
 	public void setDefendRanking(MypageDialog mypageDialog, List<Attacker> list);
 	public void setAttackRanking(MypageDialog mypageDialog, List<Attacker> list);
 	public List<Integer> makeMissonList(User user);
-	
 }

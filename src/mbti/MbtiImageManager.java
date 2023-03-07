@@ -2,7 +2,6 @@ package mbti;
 
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +44,7 @@ public class MbtiImageManager {
 		ClassLoader classLoader = getClass().getClassLoader();
 		images = new ArrayList<>();
 		for (int i = 0; i < 16; i++) {
-			images.add(kit.getImage(classLoader.getResource(mbti[i] + ".png")));
+			images.add(kit.getImage(classLoader.getResource(mbti[i] + ".png"))); 
 		}
 		
 		imagesSelect = new ArrayList<>();
@@ -56,7 +55,6 @@ public class MbtiImageManager {
 		qImage2 = kit.getImage(classLoader.getResource("Q2.png"));
 		unchecked = kit.getImage(classLoader.getResource("unchecked.png"));
 		checked = kit.getImage(classLoader.getResource("checked.png"));
-		
 	}
 
 	public List<Image> getImages() { 

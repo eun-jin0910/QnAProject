@@ -2,44 +2,28 @@ package mypage;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.GridLayout;
 
 import javax.swing.ButtonGroup;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
-import dbutil.ConnectionProvider;
 import exam.examServiceImpl;
 import object.User;
 
-import javax.swing.JScrollBar;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 
-import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.ScrollPaneConstants;
 import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 
 public class ChangeExamDialog extends JDialog implements ActionListener {
 
@@ -57,20 +41,6 @@ public class ChangeExamDialog extends JDialog implements ActionListener {
 	private List<Integer> missionOut;
 	private User user;
 
-//	public static void main(String[] args) {
-//
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					ChangeExamDialog frame = new ChangeExamDialog();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
 	// 리스트 값 질문지 표시
 	public void selectBtn(List<Integer> e) {
 		for (int i = 0; i < 10; i++) {
@@ -83,7 +53,6 @@ public class ChangeExamDialog extends JDialog implements ActionListener {
 		this.user = user;
 		esi = new examServiceImpl();
 		setModal(true);
-//		setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
 		setBounds(650, 170, 549, 723);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
@@ -176,7 +145,6 @@ public class ChangeExamDialog extends JDialog implements ActionListener {
 		// 이름으로 질문지 답변 가져오기 (수정)
 		String id = user.getId();
 		missionOut = esi.readMissionNum(id);
-//		System.out.println("가져온값" + missionOut);
 
 		// mission에서 가져온 인덱스 질문지 표시
 		selectBtn(missionOut);
@@ -196,14 +164,12 @@ public class ChangeExamDialog extends JDialog implements ActionListener {
 					selectNum.add(i);
 				}
 			}
-//			System.out.println("다시 선택된값" + selectNum);
 			if (selectNum.size() == 10) {
 				esi.editUp(selectNum, user);
 				dispose();
 			} else {
 				noSelectlbl.setText("선택되지 않은 문항이 있습니다.");
 			}
-
 		}
 	}
 }

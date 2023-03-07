@@ -5,14 +5,11 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -33,7 +30,7 @@ public class GameFrameTest extends JFrame {
 	int currentImageIndex = 0;
 	List<Image> images;
 	int ooo = 0;
-	//퀴즈배열, 열릴페이지, X값, Y값, 가로길이, 세로길이 , Y값늘어나는값
+	// 퀴즈배열, 열릴페이지, X값, Y값, 가로길이, 세로길이 , Y값늘어나는값
 	public void makingQuestion(JButton[] questionClickButton, int pageNum, int questionX, int questionY, int questionlength, int questionhight, int questionYPlus) {
 		if (currentImageIndex == pageNum) {
 			ooo = currentImageIndex;
@@ -125,7 +122,7 @@ public class GameFrameTest extends JFrame {
 					currentImageIndex = (currentImageIndex + 1) % images.size();
 					label.setIcon(new ImageIcon(images.get(currentImageIndex)));
 				}
-		      //makingQuestion(퀴즈배열, 열릴페이지, X값, Y값, 가로길이, 세로길이 , Y값늘어나는값);
+				// makingQuestion(퀴즈배열, 열릴페이지, X값, Y값, 가로길이, 세로길이 , Y값늘어나는값);
 				makingQuestion(question1, 5, 300, 100, 400, 80, 100);
 				makingQuestion(question2, 10, 150, 200, 650, 80, 150);
 				makingQuestion(question3, 16, 300, 100, 400, 80, 130);
@@ -135,21 +132,6 @@ public class GameFrameTest extends JFrame {
 		};
 		label.addMouseListener(a);
 	}
-		
-//		label.setFocusable(true);
-//		label.addKeyListener(new KeyAdapter() {
-//		KeyAdapter b = new KeyAdapter() {		
-//			@Override
-//			public void keyPressed(KeyEvent e) {
-//				System.out.println(currentImageIndex);
-//				if (currentImageIndex != 5) {
-//					currentImageIndex = (currentImageIndex + 1) % images.size();
-//					label.setIcon(new ImageIcon(images.get(currentImageIndex)));
-//				}
-//			}
-//		};
-//		label.addKeyListener(b);
-//	}
 
 	public static void main(String[] args) {
 		GameFrameTest gf = new GameFrameTest();

@@ -40,7 +40,6 @@ public class ChangeInfoDialog extends JDialog implements FocusListener, MouseLis
 	private JLabel lblResult;
 	private JButton btnNext;
 	private JButton btnMbti;
-	private JLabel checkId;
 	private JLabel checkPw;
 	private JLabel checkName;
 	private JLabel checkMbti;

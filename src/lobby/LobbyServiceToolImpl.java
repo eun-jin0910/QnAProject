@@ -55,12 +55,10 @@ public class LobbyServiceToolImpl implements LobbyServiceTool {
 			stmt.setString(2, attacker);
 
 			try (ResultSet rs = stmt.executeQuery()) {
-
 				while (rs.next()) {
 					int answer = rs.getInt(1);
 					answerList.add(answer);
 				}
-				
 				int count = 0;
 				for (Integer answer : answerList) {
 					if (missionList.contains(answer)) {
@@ -87,17 +85,14 @@ public class LobbyServiceToolImpl implements LobbyServiceTool {
 
 			try (ResultSet rs = stmt.executeQuery(); 
 					ResultSet rs2 = stmt2.executeQuery()) {
-
 				while (rs.next()) {
 					int mission = rs.getInt(1);
 					missionList.add(mission);
 				}
-
 				while (rs2.next()) {
 					int answer = rs2.getInt(1);
 					answerList.add(answer);
 				}
-				
 				int count = 0;
 				for (Integer answer : answerList) {
 					if (missionList.contains(answer)) {

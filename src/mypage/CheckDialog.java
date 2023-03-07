@@ -17,8 +17,6 @@ import login.Login;
 
 public class CheckDialog extends JDialog {
 	private final JPanel contentPane = new JPanel();
-//	private MypageDialog mypageDialog;
-//	private LobbyFrame lobbyFrame;
 	public static void main(String[] args) {
 		try {
 			CheckDialog dialog = new CheckDialog();
@@ -54,18 +52,8 @@ public class CheckDialog extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
-				
-//				MypageDialog.dispose();
-//				SecessionDialog.dispose();
-//				MypageDialog.dispose();
-//				LobbyFrame.dispose();
-//				System.exit(0);
 				new Login();
 			}
-			
 		});
-		
-		
-		
 	}
 }

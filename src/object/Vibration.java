@@ -41,6 +41,4 @@ public class Vibration {
 	public void setTimer(Timer timer) {
 		this.timer = timer;
 	}
-	
-
 }

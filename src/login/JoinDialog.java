@@ -51,7 +51,7 @@ public class JoinDialog extends JDialog implements FocusListener, MouseListener,
 	public JTextField getTfMbti() {
 		return tfMbti;
 	}
-
+ 
 	public void setTfMbti(JTextField tfMbti) {
 		this.tfMbti = tfMbti;
 	}

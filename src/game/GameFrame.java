@@ -68,6 +68,7 @@ public class GameFrame extends JFrame {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				// 게임 정상적으로 완료 시 동작
 				gameOn(user, defender, gameModeService);
 			}
 		});
@@ -112,8 +113,6 @@ public class GameFrame extends JFrame {
 			optionSong = "<HTML><body>" + option + "</body></HTML>";
 		}
 		if (currentImageIndex >= 21 && currentImageIndex < 23) {
-			// 저는 집돌이라 집에 처박혀있었네요 ㅋㅋ
-			// 어제 저녁에 친구들이랑 나가서 술 존나 퍼먹었어요 ㅋㅋ
 			String[] str = selectOption.split(" 처");
 			String option = "";
 			if (str.length > 1) {
@@ -306,11 +305,9 @@ public class GameFrame extends JFrame {
 			textLbl = gameModeService.setTextByImageIndex(this);
 			textLbl2 = gameModeService.setTextByImageIndex2(this);
 			int lastImageNum = resultImages.size() - 1;
-			// 게임 정상적으로 완료 시 동작
 			if (currentImageIndex == lastImageNum) {
-				System.out.println("이거언제");
 				dispose();
-				gameModeService.dataTransferToDB(user, defender, choiceList);
+				gameModeService.dataTransferToDB(user, defender, GameFrame.this);
 				gameModeService.gameComplete(user, defender);
 			}
 
@@ -351,5 +348,4 @@ public class GameFrame extends JFrame {
 			}
 		}
 	}
-
 }
