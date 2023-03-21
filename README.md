@@ -46,4 +46,4 @@
 해결 : 필요한 값만을 전달받을 수 있도록 변경하여 의존성을 낮춤<br><br>
 
 
-<a href="https://ej-development-note.tistory.com/100">더보기</a><br><br>
+<h2><a href="https://ej-development-note.tistory.com/100">💌 더보기</a></h2><br><br>
